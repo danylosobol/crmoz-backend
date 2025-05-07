@@ -14,12 +14,7 @@ class SettingService
   }
   public function store($key, $value)
   {
-    $setting = Setting::updateOrCreate(['key' => $key], ['value' => $value]);
-    if ($setting->isEmpty()) {
-      abort(Response::HTTP_BAD_REQUEST, 'Setting doesn\'t created.');
-    }
-
-    return $setting;
+    return Setting::updateOrCreate(['key' => $key], ['value' => $value]);
   }
 
   public function show($key)
@@ -43,6 +38,7 @@ class SettingService
       DB::commit();
       return $storedSettings;
     } catch (\Exception $e) {
+      dd($e->getMessage());
       DB::rollBack();
       abort(Response::HTTP_BAD_REQUEST, 'Settings were not stored.');
     }
