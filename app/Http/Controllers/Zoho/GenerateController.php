@@ -14,7 +14,7 @@ class GenerateController extends BaseController
             $result = $this->service->generate_tokens(code: $data['code']);
             return response()->json(['status' => $result], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], $e->getCode());
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 }

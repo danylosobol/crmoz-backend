@@ -10,18 +10,12 @@ class SettingService
 {
   public function index($keys)
   {
-    $settings = Setting::whereIn('key', $keys)->get();
-
-    if (!$settings) {
-      abort(Response::HTTP_BAD_REQUEST, 'Settings doesn\'t exists.');
-    }
-
-    return $settings;
+    return Setting::whereIn('key', $keys)->get();
   }
   public function store($key, $value)
   {
     $setting = Setting::updateOrCreate(['key' => $key], ['value' => $value]);
-    if (!$setting) {
+    if ($setting->isEmpty()) {
       abort(Response::HTTP_BAD_REQUEST, 'Setting doesn\'t created.');
     }
 
@@ -31,7 +25,7 @@ class SettingService
   public function show($key)
   {
     $setting = Setting::find($key);
-    if (!$setting) {
+    if ($setting->isEmpty()) {
       abort(Response::HTTP_NOT_FOUND, 'This setting doesn\'t exist.');
     }
     return $setting;

@@ -15,7 +15,7 @@ class StoreController extends BaseController
             $result = $this->service->bulkStore($data['settings']);
             return SettingResource::collection($result);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], $e->getCode());
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 }

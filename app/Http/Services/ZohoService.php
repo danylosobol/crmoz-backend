@@ -89,7 +89,7 @@ class ZohoService
     try {
       return $this->request('post', $url_base, $payload)['data'][0] ?? [];
     } catch (\Exception $e) {
-      abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
+      abort(Response::HTTP_BAD_REQUEST, 'Failed to create an account.');
     }
   }
 
@@ -112,7 +112,7 @@ class ZohoService
         $payload
       )['data'][0] ?? [];
     } catch (\Exception $e) {
-      abort(Response::HTTP_BAD_REQUEST, $e->getMessage());
+      abort(Response::HTTP_BAD_REQUEST, 'Failed to create a deal.');
     }
   }
 
